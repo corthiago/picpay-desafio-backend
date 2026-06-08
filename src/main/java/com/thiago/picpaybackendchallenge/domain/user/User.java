@@ -1,5 +1,6 @@
 package com.thiago.picpaybackendchallenge.domain.user;
 
+import com.thiago.picpaybackendchallenge.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,7 +26,7 @@ public class User {
     private String lastName;
 
     @Column(unique = true)
-    private String documentId;
+    private String document;
 
     @Column(unique = true)
     private String email;
@@ -35,4 +37,14 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    public User(UserDTO data){
+        this.firstName = data.firstName();
+        this.lastName = data.lastName();
+        this.document = data.document();
+        this.balance = data.balance();
+        this.email = data.email();
+        this.password = data.password();
+        this.userType = data.userType();
+    }
 }

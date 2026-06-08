@@ -2,10 +2,7 @@ package com.thiago.picpaybackendchallenge.domain.transaction;
 
 import com.thiago.picpaybackendchallenge.domain.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,6 +13,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
