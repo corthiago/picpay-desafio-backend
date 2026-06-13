@@ -1,0 +1,10 @@
+.git
+.github
+.idea
+.DS_Store
+target
+*.iml
+*.log
+deploy
+README.md
+readme.md

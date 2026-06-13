@@ -1,0 +1,38 @@
+services:
+  app-staging:
+    image: ${STAGING_IMAGE:-ghcr.io/corthiago/picpay-desafio-backend:staging-latest}
+    container_name: picpay-backend-staging
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: staging
+      SERVER_PORT: 8080
+    networks:
+      - picpay
+
+  app-production:
+    image: ${PRODUCTION_IMAGE:-ghcr.io/corthiago/picpay-desafio-backend:production-latest}
+    container_name: picpay-backend-production
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: production
+      SERVER_PORT: 8080
+    networks:
+      - picpay
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: picpay-backend-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      STAGING_DOMAIN: ${STAGING_DOMAIN:-staging.example.com}
+      PRODUCTION_DOMAIN: ${PRODUCTION_DOMAIN:-api.example.com}
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates:ro
+    networks:
+      - picpay
+
+networks:
+  picpay:
+    name: picpay-backend-network
